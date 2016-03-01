@@ -1,4 +1,6 @@
 *.class
+
+org.eclipse.jdt.core.*
 .classpath
 .project
 .settings
