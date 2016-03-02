@@ -81,7 +81,13 @@ public class RecvData {
 			}
 		} catch (IOException e) {
 			m_clientWindow.disposeWindow();
-			m_mainWindow.removeNamefromJList(m_clientWindow.getIPAndPort());
+			if (m_mainWindow != null) {
+				if (!m_clientWindow.getClientName().equals("Unknown")) {
+					m_mainWindow.removeNamefromJList(m_clientWindow.getClientName());
+				} else {
+					m_mainWindow.removeNamefromJList(m_clientWindow.getIPAndPort());
+				}
+			}
 		}
 	}
 }

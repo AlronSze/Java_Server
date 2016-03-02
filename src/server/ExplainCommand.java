@@ -61,8 +61,7 @@ public class ExplainCommand {
 	}
 	
 	/**
-	 * Check command is right or not.
-	 * <p><b>Now the method is a demo, wait for customizing.</b><p>
+	 * Check command is right or not(Now the method is a demo, not for release).
 	 * 
 	 * @param toExplain  if toExplain is true, explain command do things.
 	 * @return if command is right return true, else return false.
@@ -150,10 +149,13 @@ public class ExplainCommand {
 		
 		String clientName = stringBuffer.toString();
 		m_clientWindow.setJFrameTitle(clientName);
-		m_mainWindow.changeNameInJList(m_clientWindow.getIPAndPort(), clientName);
+		if (m_mainWindow != null) {
+			m_clientWindow.setClientName(clientName);
+			m_mainWindow.changeNameInJList(m_clientWindow.getIPAndPort(), clientName);
 		
-		if (clientName.equals("Rongzhen")) {
-			m_clientWindow.appendJTextAreaRecvText("Rongzhen is connected!\n");
+			if (clientName.equals("LAVA")) {
+				m_clientWindow.appendJTextAreaRecvText("LAVA is connected!\n");
+			}
 		}
 	}
 	

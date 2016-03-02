@@ -61,8 +61,8 @@ public class ClientWindow{
 	/** Used for static string storage. */
 	final static String FONT_TYPE = "Times NewRoman";
 	
-	/** Used for static string storage. */
-	final static String CLIENT_NAME = "Client";
+	/** The CLIENT_NAME is used for client name storage. */
+	private String m_clientName = "Unknow";
 	
 	/** The m_default_font_size is used for default font size storage. */
 	private int m_default_font_size = 16;
@@ -214,6 +214,24 @@ public class ClientWindow{
 	 */
 	public void setJFrameTitle(String str) {
 		m_jFrame.setTitle("[" + str + "] " + m_ip + ":" + Integer.toString(m_port));
+	}
+	
+	/**
+	 * To get the client name.
+	 * 
+	 * @return the client name string.
+	 */
+	public String getClientName() {
+		return m_clientName;
+	}
+	
+	/**
+	 * To set the client real name.
+	 * 
+	 * @param clientName  the client real name string to set.s
+	 */
+	public void setClientName(String clientName) {
+		m_clientName = clientName;
 	}
 	
 	/**
@@ -400,7 +418,12 @@ public class ClientWindow{
 	 */
 	private void initJFrame() {
 		m_jFrame = new JFrame();
-		m_jFrame.setTitle("[" + CLIENT_NAME + "] " + m_ip + ":" + Integer.toString(m_port));
+		if (m_mainWindow != null) {
+			m_jFrame.setTitle("[" + m_clientName + "] " + m_ip + ":" + Integer.toString(m_port));
+		}
+		else {
+			m_jFrame.setTitle("[Connecting with server] " + m_ip + ":" + Integer.toString(m_port));
+		}
 		m_jFrame.setSize(500,500);
 		m_jFrame.setLayout(null);
 		m_jFrame.setResizable(false);
@@ -411,13 +434,21 @@ public class ClientWindow{
 				try {
 					m_socket.close();
 				} catch (IOException e) {
+					e.printStackTrace();
 				} finally {
-					m_mainWindow.removeNamefromJList(getIPAndPort());
+					if (m_mainWindow != null) {
+						if (m_clientName.equals("Unknown")) {
+							m_mainWindow.removeNamefromJList(m_clientName);
+						}
+						else {
+							m_mainWindow.removeNamefromJList(getIPAndPort());
+						}
+					}
 				}
 			}
 		});
 	}
-	
+
 	/**
 	 * To add widget for JFrame.
 	 */
